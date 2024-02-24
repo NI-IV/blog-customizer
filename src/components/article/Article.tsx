@@ -5,10 +5,29 @@ import plane from 'src/images/plane.png';
 import { Text } from 'components/text';
 
 import styles from './Article.module.scss';
+import { useEffect, useRef } from 'react';
 
-export const Article = () => {
+type TArticleProps = {
+	handlerArticleClickEvent: () => void;
+}
+
+export const Article = (props: TArticleProps) => {
+
+	const page = useRef<HTMLElement>(null);
+
+	useEffect(() => {
+		if (page.current) {
+			page.current.addEventListener('click', props.handlerArticleClickEvent);
+		}
+		return () => {
+			if (page.current) {
+				page.current.removeEventListener('click', props.handlerArticleClickEvent);
+			}
+		}
+	})
+
 	return (
-		<article className={clsx(styles.article)}>
+		<article ref={page} className={clsx(styles.article)}>
 			<Text as='h1' size={45} weight={800} uppercase dynamicLite>
 				Портрет Западной Швейцарии
 			</Text>

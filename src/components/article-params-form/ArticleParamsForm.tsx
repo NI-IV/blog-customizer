@@ -20,15 +20,17 @@ import {
 import styles from './ArticleParamsForm.module.scss';
 
 type TArticleParamsForm = {
+	openStatus: boolean;
+	setOpenStatus: Function;
 	submitClick: (state: ArticleStateType) => void;
 };
 
 export const ArticleParamsForm = (props: TArticleParamsForm) => {
-	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [isOpen, setIsOpen] = [props.openStatus, props.setOpenStatus];
 
-	const [formState, setFormState] = useState(defaultArticleState);
+	const [formState, setFormState] = useState<ArticleStateType>(defaultArticleState);
 
-	const handleOpen = (): void => {
+	const handleOpenSidebar = (): void => {
 		isOpen ? setIsOpen(false) : setIsOpen(true);
 	};
 
@@ -47,7 +49,7 @@ export const ArticleParamsForm = (props: TArticleParamsForm) => {
 
 	return (
 		<>
-			<ArrowButton isOpen={isOpen} setIsOpen={handleOpen} />
+			<ArrowButton isOpen={isOpen} setIsOpen={handleOpenSidebar} />
 			{/* <aside className={isOpen ? clsx(styles.container, styles.container_open) : clsx(styles.container)}></aside> */}
 			<aside
 				className={
@@ -56,7 +58,7 @@ export const ArticleParamsForm = (props: TArticleParamsForm) => {
 						: clsx(styles.container)
 				}>
 				<form className={styles.form} onSubmit={onSubmit}>
-					<Text as='p' size={31} weight={800} uppercase dynamicLite>
+					<Text as='p' size={31} weight={800} uppercase dynamic={false}>
 						Задайте параметры
 					</Text>
 

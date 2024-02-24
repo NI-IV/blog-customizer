@@ -16,6 +16,8 @@ const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
 
 const App = () => {
+	const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
+
 	const [pageState, setPageState] =
 		useState<ArticleStateType>(defaultArticleState);
 
@@ -23,6 +25,11 @@ const App = () => {
 		setPageState(state);
 		console.log(pageState);
 	};
+
+	const handlerArticleClickEvent = () => {
+		setIsOpenSidebar(false);
+	}
+
 
 	return (
 		<div
@@ -36,8 +43,8 @@ const App = () => {
 					'--bg-color': pageState.backgroundColor.value,
 				} as CSSProperties
 			}>
-			<ArticleParamsForm submitClick={handlePageState} />
-			<Article />
+			<ArticleParamsForm openStatus={isOpenSidebar} setOpenStatus={setIsOpenSidebar} submitClick={handlePageState} />
+			<Article handlerArticleClickEvent={handlerArticleClickEvent}/>
 		</div>
 	);
 };
