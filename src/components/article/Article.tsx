@@ -1,33 +1,12 @@
-import clsx from 'clsx';
-
 // Сообщаем вебпаку, что этот файл использует это изображение.
 import plane from 'src/images/plane.png';
 import { Text } from 'components/text';
 
 import styles from './Article.module.scss';
-import { useEffect, useRef } from 'react';
 
-type TArticleProps = {
-	handlerArticleClickEvent: () => void;
-}
-
-export const Article = (props: TArticleProps) => {
-
-	const page = useRef<HTMLElement>(null);
-
-	useEffect(() => {
-		if (page.current) {
-			page.current.addEventListener('click', props.handlerArticleClickEvent);
-		}
-		return () => {
-			if (page.current) {
-				page.current.removeEventListener('click', props.handlerArticleClickEvent);
-			}
-		}
-	})
-
+export const Article = () => {
 	return (
-		<article ref={page} className={clsx(styles.article)}>
+		<article className={styles.article}>
 			<Text as='h1' size={45} weight={800} uppercase dynamicLite>
 				Портрет Западной Швейцарии
 			</Text>

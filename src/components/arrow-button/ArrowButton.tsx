@@ -12,24 +12,20 @@ type TArrowButtonProps = {
 };
 
 export const ArrowButton = (props: TArrowButtonProps) => {
+	const [isOpen, setIsOpen] = [props.isOpen, props.setIsOpen];
+
 	return (
 		/* Не забываем указаывать role и aria-label атрибуты для интерактивных элементов */
 		<div
 			role='button'
 			aria-label='Открыть/Закрыть форму параметров статьи'
 			tabIndex={0}
-			className={
-				props.isOpen
-					? clsx(styles.container, styles.container_open)
-					: clsx(styles.container)
-			}
-			onClick={props.setIsOpen}>
+			className={clsx(styles.container, { [styles.container_open]: isOpen })}
+			onClick={setIsOpen}>
 			<img
 				src={arrow}
 				alt='иконка стрелочки'
-				className={
-					props.isOpen ? clsx(styles.arrow, styles.arrow_open) : styles.arrow
-				}
+				className={clsx(styles.arrow, { [styles.arrow_open]: isOpen })}
 			/>
 		</div>
 	);
